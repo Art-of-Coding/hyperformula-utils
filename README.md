@@ -30,5 +30,5 @@ async function resolve(name: string): Promise<Sheet> {
   throw new Error(`Sheet "${name}" not found`);
 }
 
-console.log(await calculateFormula("=Sheet1!A1*5.5", resolve));
+console.log(await calculateFormula(hfInstance, "=Sheet1!A1*5.5", resolve));
 ```
