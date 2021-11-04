@@ -1,6 +1,6 @@
 {
   "name": "@art-of-coding/hyperformula-utils",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Utility functions for HyperFormula",
   "main": "./dist/index.js",
   "repository": {
@@ -9,6 +9,9 @@
   },
   "keywords": [
     "hyperformula"
+  ],
+  "files": [
+    "dist"
   ],
   "author": "Michiel van der Velde <michiel@michielvdvelde.nl>",
   "bugs": {
