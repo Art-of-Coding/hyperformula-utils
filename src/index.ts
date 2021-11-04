@@ -54,11 +54,9 @@ export async function calculateFormula(
 ) {
   const dependencies = extractSheetNames(formula)
   if (dependencies.length) {
-    hfInstance.suspendEvaluation()
     for (const dependency of dependencies) {
       await addSheet(hfInstance, dependency, resolve)
     }
-    hfInstance.resumeEvaluation()
   }
 
   // if adding and removing the sheet induces performance issues,
