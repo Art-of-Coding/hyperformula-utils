@@ -48,6 +48,24 @@ export function extractSheetNames(formula: string): string[] {
   return sheetNames
 }
 
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+export function simpleCellAddressFromString(cellAddress: string): { row: number, col: number } {
+  let rowString = ''
+  let colString = ''
+  for (let i = 0; i < cellAddress.length; i++) {
+    if (alphabet.includes(cellAddress[i].toUpperCase())) {
+      rowString += cellAddress[i]
+    } else {
+      colString += cellAddress[i]
+    }
+  }
+
+  const offset = ((rowString.length - 1) * alphabet.length)
+  const row = offset + alphabet.indexOf(rowString.substr(offset))
+  return { row, col: parseInt(colString) - 1}
+}
+
 // Deduplicate arrays and create a new array with unique elements
 export function deduplicate<Type>(...arrays: Type[][]) {
   const result: Type[] = []
