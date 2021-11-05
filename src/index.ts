@@ -8,7 +8,14 @@ export {
   simpleCellAddressFromString,
 } from './functions'
 
-/** Load a sheet and all its formula dependencies. */
+/**
+ * Add a sheet to the HyperFormula instance.
+ * Will resolve sheet dependencies.
+ * @param hfInstance A HyperFormula instance
+ * @param name The name of the sheet
+ * @param resolve The function to be used when resolving dependencies
+ * @returns A list of all evaluated changes
+ */
 export async function addSheet(
   hfInstance: HyperFormula,
   name: string,
@@ -36,7 +43,13 @@ export async function addSheet(
   return addSheets(hfInstance, sheets)
 }
 
-/** Add multiple sheets and resuming evaluation. */
+/**
+ * Add multiple sheets.
+ * Suspends evaluation before adding and resumes after.
+ * @param hfInstance A HyperFormula instance
+ * @param sheets The sheets to add
+ * @returns A list of evaluated changes
+ */
 export function addSheets(hfInstance: HyperFormula, sheets: Sheets) {
   hfInstance.suspendEvaluation()
   for (const name of Object.keys(sheets)) {
@@ -52,7 +65,14 @@ export function addSheets(hfInstance: HyperFormula, sheets: Sheets) {
   return hfInstance.resumeEvaluation()
 }
 
-/** Calculate a fire-and-forget formula. */
+/**
+ * Calculate a fire-and-forget formula in a throw-away sheet.
+ * Will resolve sheet dependencies.
+ * @param hfInstance A HyperFormula instance
+ * @param formula The formula to calculate
+ * @param resolve The function to be used when resolvin dependencies
+ * @returns The result of the formula
+ */
 export async function calculateFormula(
   hfInstance: HyperFormula,
   formula: string,
