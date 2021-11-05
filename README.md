@@ -8,6 +8,7 @@ Utility functions for
 - Parse formulas and get all sheet names
 - Load sheet and all sheets its formulas depend on
 - On-demand loading of sheets for fire-and-forget formulas
+- Sheet builder
 
 ### Limitations
 
@@ -122,5 +123,28 @@ const address = simpleCellAddressFromString("A1");
   row: 0,
   col: 0
 }
+*/
+```
+
+### Builder
+
+Build sheets by using the A1 notation.
+
+The builder does not use HyperFormula, it has its own implementation. The
+resulting sheet can easily be added to a HyperFormula instance by using
+`hfInstance.addSheet(sheet)`.
+
+```ts
+import { Builder } from "@art-of-coding/hyperformula-utils";
+
+const builder = new Builder();
+const sheet = builder
+  .setCellContent("A1", "1")
+  .setCellContent("B1", "2")
+  .setCellContent("C1", "=A1*B1")
+  .build();
+
+/*
+[ [ '1' ], [ '2' ], [ '=A1*B1' ] ]
 */
 ```

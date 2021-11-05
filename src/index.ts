@@ -1,6 +1,8 @@
 import type { Sheet, Sheets, HyperFormula } from 'hyperformula'
 import { generateSheetName, findDependencies, extractSheetNames } from './functions'
 
+export { Builder } from './builder'
+
 export {
   findDependencies,
   extractFormulas,
