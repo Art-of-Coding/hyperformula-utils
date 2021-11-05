@@ -37,23 +37,26 @@ export class Builder {
    */
   build(): Sheet {
     const sheet: Sheet = []
+    let highestRow = 0
+    let highestCol = 0
     for (const address of this.#map.keys()) {
-      if (!sheet[address.row]) {
-        const remaining = sheet.length - address.row + 1
-        if (remaining > 0) {
-          for (let i = 0; i < remaining; i++) {
-            sheet.push([''])
-          }
-        }
+      if (address.col > highestCol) {
+        highestCol = address.col
       }
-      if (!sheet[address.row][address.col]) {
-        const remaining = sheet[address.row].length - address.col + 1
-        if (remaining > 0) {
-          for (let i = 0; i < remaining; i++) {
-            sheet.push([''])
-          }
-        }
+      if (address.row > highestRow) {
+        highestRow = address.row
       }
+    }
+
+    for (let col = 0; col <= highestCol; col++) {
+      sheet.push(new Array(highestRow).fill(null))
+      const r = sheet[col]
+      for (let row = 0; row <= highestRow; row++) {
+        r.push(null)
+      }
+    }
+
+    for (const address of this.#map.keys()) {
       sheet[address.col][address.row] = this.#map.get(address)
     }
     return sheet

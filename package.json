@@ -1,6 +1,6 @@
 {
   "name": "@art-of-coding/hyperformula-utils",
-  "version": "0.0.6",
+  "version": "0.0.14",
   "description": "Utility functions for HyperFormula",
   "main": "./dist/index.js",
   "repository": {
