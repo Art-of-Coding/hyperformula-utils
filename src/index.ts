@@ -1,6 +1,13 @@
 import type { Sheet, Sheets, HyperFormula } from 'hyperformula'
 import { generateSheetName, findDependencies, extractSheetNames } from './functions'
 
+export {
+  findDependencies,
+  extractFormulas,
+  extractSheetNames,
+  simpleCellAddressFromString,
+} from './functions'
+
 /** Load a sheet and all its formula dependencies. */
 export async function addSheet(
   hfInstance: HyperFormula,
