@@ -52,7 +52,62 @@ console.log(await calculateFormula(hfInstance, "=Sheet1!A1*5.5", resolve));
 
 ## API Documentation
 
-### `findDependencies(sheet: Sheet): string[]`
+### `addSheet()`
+
+Add a sheet and all sheets its fomulas depend on.
+
+```ts
+import { HyperFormula } from "hyperformula";
+import { addSheet } from "@art-of-coding/hyperformula-utils";
+
+const hfInstance = HyperFormula.buildEmpty({ licenseKey: "gpl-v3" });
+
+async function resolve(name): Promise<Sheet> {
+  // custom resolve logic here
+}
+
+await addSheet(hfInstance, "Sheet1", resolve);
+```
+
+### `addSheets(hfInstance: HyperFormula, sheets: Sheets): ExportedChange[]`
+
+Add multiple sheets at once. Suspends and then resumes evaluation.
+
+```ts
+import { HyperFormula } from "hyperformula";
+import { addSheet } from "@art-of-coding/hyperformula-utils";
+
+const hfInstance = HyperFormula.buildEmpty({ licenseKey: "gpl-v3" });
+
+addSheets(hfInstance, {
+  Sheet1: [["1"]],
+  Sheet2: [["2"]],
+});
+```
+
+### `calculateFormula()`
+
+Calculate a fire-and-forget formula in a throw-away sheet.
+
+```ts
+import { HyperFormula, Sheet } from "hyperformula";
+import { calculateFormula } from "@art-of-coding/hyperformula-utils";
+
+const hfInstance = HyperFormula.buildEmpty({
+  licenseKey: "gpl-v3",
+});
+
+async function resolve(name: string): Promise<Sheet> {
+  // Our custom resolve function
+}
+
+// Outputs '22'
+console.log(await calculateFormula(hfInstance, "=Sheet1!A1*5.5", resolve));
+```
+
+### Helpers
+
+#### `findDependencies(sheet: Sheet): string[]`
 
 Find all dependencies for the given sheet. Will check all formulas for
 references to other sheets.
@@ -64,13 +119,11 @@ const sheet = [["1", "2", "=AnotherSheet!A1*A1"]];
 const dependencies = findDependencies(sheet);
 
 /*
-[
-  'AnotherSheet'
-]
+[ 'AnotherSheet' ]
 */
 ```
 
-### `extractFormulas(sheet: Sheet): string[]`
+#### `extractFormulas(sheet: Sheet): string[]`
 
 Extract all formulas from the sheet. Formulas are any string that starts with
 `=`.
@@ -82,9 +135,7 @@ const sheet = [["1", "2", "=AnotherSheet!A1*A1"]];
 const formulas = extractFormulas(sheet);
 
 /*
-[
-  '=AnotherSheet!:A1*A1'
-]
+[ '=AnotherSheet!A1*A1' ]
 */
 ```
 
@@ -100,9 +151,7 @@ import { extractSheetNames } from "@art-of-coding/hyperformula-utils";
 const sheetNames = extractSheetNames("=AnotherSheet!A1*A1");
 
 /*
-[
-  '=AnotherSheet'
-]
+[ 'AnotherSheet' ]
 */
 ```
 
@@ -145,6 +194,6 @@ const sheet = builder
   .build();
 
 /*
-[ [ '1' ], [ '2' ], [ '=A1*B1' ] ]
+[ [ '1', '2', '=A1*B1' ] ]
 */
 ```
