@@ -38,24 +38,23 @@ export class Builder {
   build(): Sheet {
     const sheet: Sheet = []
     for (const address of this.#map.keys()) {
-      if (sheet.length < address.row) {
-        for (let i = 0; i < sheet.length; i++) {
-          if (!sheet[i]) {
-            sheet[i] = []
+      if (!sheet[address.row]) {
+        const remaining = sheet.length - address.row + 1
+        if (remaining > 0) {
+          for (let i = 0; i < remaining; i++) {
+            sheet.push([''])
           }
         }
       }
-
-      const col = sheet[address.col] ?? []
-      if (col.length < address.col) {
-        for (let i = 0; i < col.length; i++) {
-          if (!col[i]) {
-            col[i] = ''
+      if (!sheet[address.row][address.col]) {
+        const remaining = sheet[address.row].length - address.col + 1
+        if (remaining > 0) {
+          for (let i = 0; i < remaining; i++) {
+            sheet.push([''])
           }
         }
       }
-      sheet[address.col] = col
-      sheet[address.row][address.col] = this.#map.get(address)
+      sheet[address.col][address.row] = this.#map.get(address)
     }
     return sheet
   }

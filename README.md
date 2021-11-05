@@ -55,7 +55,7 @@ console.log(await calculateFormula(hfInstance, "=Sheet1!A1*5.5", resolve));
 ### `findDependencies(sheet: Sheet): string[]`
 
 Find all dependencies for the given sheet. Will check all formulas for
-references to other sheets and return their dependencies as well.
+references to other sheets.
 
 ```ts
 import { findDependencies } from "@art-of-coding/hyperformula-utils";
