@@ -59,7 +59,7 @@ references to other sheets and return their dependencies as well.
 ```ts
 import { findDependencies } from "@art-of-coding/hyperformula-utils";
 
-const sheet = [["1", "2", "=AnotherSheet!:A1*A1"]];
+const sheet = [["1", "2", "=AnotherSheet!A1*A1"]];
 const dependencies = findDependencies(sheet);
 
 /*
@@ -77,7 +77,7 @@ Extract all formulas from the sheet. Formulas are any string that starts with
 ```ts
 import { extractFormulas } from "@art-of-coding/hyperformula-utils";
 
-const sheet = [["1", "2", "=AnotherSheet!:A1*A1"]];
+const sheet = [["1", "2", "=AnotherSheet!A1*A1"]];
 const formulas = extractFormulas(sheet);
 
 /*
@@ -96,7 +96,7 @@ Sheet names must be alphanumeric.
 ```ts
 import { extractSheetNames } from "@art-of-coding/hyperformula-utils";
 
-const sheetNames = extractSheetNames("=AnotherSheet!:A1*A1");
+const sheetNames = extractSheetNames("=AnotherSheet!A1*A1");
 
 /*
 [
