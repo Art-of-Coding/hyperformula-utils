@@ -1,5 +1,4 @@
-import type { Sheet, Sheets } from 'hyperformula'
-import type { HyperFormula } from 'hyperformula'
+import type { Sheet, Sheets, HyperFormula } from 'hyperformula'
 import { generateSheetName, findDependencies, extractSheetNames } from './functions'
 
 /** Load a sheet and all its formula dependencies. */
