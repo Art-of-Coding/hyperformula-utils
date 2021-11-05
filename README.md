@@ -11,7 +11,7 @@ Utility functions for
 
 ### Limitations
 
-- Sheet name must be alphanumberic (case-insansitive)
+- Sheet name must be alphanumeric (case-insensitive)
 
 ## Install
 
