@@ -66,8 +66,7 @@ export function simpleCellAddressFromString(cellAddress: string): { row: number,
   return { row, col: parseInt(colString) - 1}
 }
 
-// Deduplicate arrays and create a new array with unique elements
-export function deduplicate<Type>(...arrays: Type[][]) {
+function deduplicate<Type>(...arrays: Type[][]) {
   const result: Type[] = []
   for (const array of arrays) {
     for (const value of array) {
