@@ -25,6 +25,7 @@ export class Builder {
     for (const mapped of this.#map.keys()) {
       if (mapped.row === address.row && mapped.col === address.col) {
         this.#map.delete(mapped)
+        break
       }
     }
     return this
@@ -37,7 +38,7 @@ export class Builder {
   build(): Sheet {
     const sheet: Sheet = []
     for (const address of this.#map.keys()) {
-      if (sheet.length < address.col) {
+      if (sheet.length < address.row) {
         for (let i = 0; i < sheet.length; i++) {
           if (!sheet[i]) {
             sheet[i] = []
@@ -45,15 +46,15 @@ export class Builder {
         }
       }
 
-      const row = sheet[address.row] ?? []
-      if (row.length < address.row) {
-        for (let i = 0; i < row.length; i++) {
-          if (!row[i]) {
-            row[i] = ''
+      const col = sheet[address.col] ?? []
+      if (col.length < address.col) {
+        for (let i = 0; i < col.length; i++) {
+          if (!col[i]) {
+            col[i] = ''
           }
         }
       }
-      sheet[address.row] = row
+      sheet[address.col] = col
       sheet[address.row][address.col] = this.#map.get(address)
     }
     return sheet
